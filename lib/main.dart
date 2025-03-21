@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = AppRouter.generate(isLoggedIn);
-  
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(

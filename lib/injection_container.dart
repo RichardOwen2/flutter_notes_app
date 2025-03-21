@@ -8,8 +8,8 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   // External
-  sl.registerSingleton(() => HttpService());
-  sl.registerSingleton(() => const FlutterSecureStorage());
+  sl.registerLazySingleton(() => HttpService());
+  sl.registerLazySingleton(() => const FlutterSecureStorage());
 
   // Repositories
   sl.registerLazySingleton<AuthRepository>(

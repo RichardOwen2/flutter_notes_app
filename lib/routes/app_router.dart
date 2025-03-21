@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notes_app_2/injection_container.dart';
+import 'package:notes_app_2/pages/create_note_page.dart';
+import 'package:notes_app_2/pages/note_detail_page.dart';
 
 import '../pages/login_page.dart';
 import '../pages/register_page.dart';
@@ -47,6 +49,17 @@ class AppRouter {
         GoRoute(
           path: '/notes/archived',
           builder: (context, state) => AppLayout(child: ArchivedNotesPage()),
+        ),
+        GoRoute(
+          path: '/notes/create',
+          builder: (context, state) => AppLayout(child: CreateNotePage()),
+        ),
+        GoRoute(
+          path: '/notes/:id',
+          builder: (context, state) {
+            final noteId = state.pathParameters['id']!;
+            return AppLayout(child: NoteDetailPage(noteId: noteId));
+          },
         ),
       ],
     );

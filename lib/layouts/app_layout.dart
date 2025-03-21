@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AppLayout extends StatelessWidget {
   final Widget child;
@@ -15,17 +16,21 @@ class AppLayout extends StatelessWidget {
             const DrawerHeader(child: Text('Menu')),
             ListTile(
               title: const Text('Notes'),
-              onTap: () => Navigator.pushNamed(context, '/notes'),
+              onTap: () => context.go('/notes'),
             ),
             ListTile(
               title: const Text('Archived'),
-              onTap: () => Navigator.pushNamed(context, '/notes/archived'),
+              onTap: () => context.go('/notes/archived'),
             ),
             ListTile(
               title: const Text('Logout'),
               onTap: () {
                 // You can dispatch LogoutRequested here
-                Navigator.pushNamedAndRemoveUntil(context, '/login', (r) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/login',
+                  (r) => false,
+                );
               },
             ),
           ],
