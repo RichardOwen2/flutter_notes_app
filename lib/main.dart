@@ -5,6 +5,7 @@ import 'package:notes_app_2/blocs/auth/auth_bloc.dart';
 import 'package:notes_app_2/blocs/note/note_bloc.dart';
 import 'package:notes_app_2/repositories/auth_repository.dart';
 import 'package:notes_app_2/repositories/note_repository.dart';
+import 'package:notes_app_2/theme/app_theme.dart';
 import 'injection_container.dart';
 import 'routes/app_router.dart';
 
@@ -40,6 +41,9 @@ class MyApp extends StatelessWidget {
         routerDelegate: router.routerDelegate,
         routeInformationParser: router.routeInformationParser,
         routeInformationProvider: router.routeInformationProvider,
+        theme: AppTheme.light, // ✅ Custom theme
+        darkTheme: AppTheme.dark, // 🌙 Optional: dark mode support
+        themeMode: ThemeMode.system,
       ),
     );
   }
