@@ -16,14 +16,14 @@ class AuthLayout extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(height: 24),
-                const Icon(Icons.lock_outline, size: 64, color: Colors.blue),
-                const SizedBox(height: 16),
-                Text(
-                  'Welcome to Notes',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 32),
+                // const SizedBox(height: 24),
+                // const Icon(Icons.lock_outline, size: 64, color: Colors.blue),
+                // const SizedBox(height: 16),
+                // Text(
+                //   'Welcome to Notes',
+                //   style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                // ),
+                // const SizedBox(height: 32),
                 child,
               ],
             ),

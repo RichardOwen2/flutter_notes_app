@@ -1,6 +1,10 @@
 abstract class NoteEvent {}
 
-class GetNotes extends NoteEvent {}
+class GetNotes extends NoteEvent {
+  final bool force;
+
+  GetNotes({this.force = false});
+}
 
 class GetArchivedNotes extends NoteEvent {}
 

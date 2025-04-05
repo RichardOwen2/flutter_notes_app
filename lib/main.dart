@@ -6,6 +6,7 @@ import 'package:notes_app_2/blocs/note/note_bloc.dart';
 import 'package:notes_app_2/repositories/auth_repository.dart';
 import 'package:notes_app_2/repositories/note_repository.dart';
 import 'package:notes_app_2/theme/app_theme.dart';
+import 'package:notes_app_2/utils/theme_utils.dart';
 import 'injection_container.dart';
 import 'routes/app_router.dart';
 
@@ -28,6 +29,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final router = AppRouter.generate(isLoggedIn);
 
+    final brightness = View.of(context).platformDispatcher.platformBrightness;
+    TextTheme textTheme = createTextTheme(context, "Inter", "Inter");
+    MaterialTheme theme = MaterialTheme(textTheme);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -41,9 +46,8 @@ class MyApp extends StatelessWidget {
         routerDelegate: router.routerDelegate,
         routeInformationParser: router.routeInformationParser,
         routeInformationProvider: router.routeInformationProvider,
-        theme: AppTheme.light, // ✅ Custom theme
-        darkTheme: AppTheme.dark, // 🌙 Optional: dark mode support
-        themeMode: ThemeMode.system,
+        // theme: brightness == Brightness.light ? theme.light() : theme.dark(),
+        theme: theme.light(),
       ),
     );
   }

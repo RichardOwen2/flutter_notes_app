@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notes_app_2/theme/app_theme.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
 import '../blocs/auth/auth_state.dart';
@@ -47,37 +48,55 @@ class _LoginPageState extends State<LoginPage> {
         final login = state.loginState;
 
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Login",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            Text(
+              'Login',
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: login is Loading ? null : _submit,
-              child:
-                  login is Loading
-                      ? const CircularProgressIndicator(strokeWidth: 2)
-                      : const Text("Login"),
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                hintText: 'Enter your email',
+              ),
             ),
             const SizedBox(height: 16),
-            TextButton(
-              onPressed: () => context.go('/register'),
-              child: const Text("Don't have an account? Register"),
+            TextField(
+              controller: passwordController,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+                hintText: 'Enter your password',
+              ),
+              obscureText: true,
             ),
+            const SizedBox(height: 16),
+            if (login is Loading) ...[
+              const CircularProgressIndicator(),
+            ] else ...[
+              ElevatedButton(onPressed: _submit, child: const Text('Login')),
+            ],
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Don\'t have an account?'),
+                const SizedBox(width: 3),
+                InkWell(
+                  onTap: () => context.go('/register'),
+                  child: const Text(
+                    'Register here',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: AppTheme.primaryColor,
+                    )
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
           ],
         );
       },
