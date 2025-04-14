@@ -16,6 +16,6 @@ class Error<T> extends UiState<T> {
   const Error(this.message);
 }
 
-class NotLogged<T> extends UiState<T> {
-  const NotLogged();
+class Unauthenticate<T> extends UiState<T> {
+  const Unauthenticate();
 }

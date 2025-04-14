@@ -11,7 +11,7 @@ class QueryClient {
 
   QueryCache<T> getOrCreate<T>(
     String key, {
-    Duration ttl = const Duration(minutes: 5),
+    Duration ttl = const Duration(minutes: 15),
   }) {
     if (!_cache.containsKey(key)) {
       _cache[key] = QueryCache<T>(

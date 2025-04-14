@@ -17,8 +17,8 @@ class NoteState {
   factory NoteState.initial() => NoteState(
         notes: const Loading(),
         archivedNotes: const Loading(),
-        singleNote: const NotLogged(),
-        actionState: const NotLogged(),
+        singleNote: const Loading(),
+        actionState: const Loading(),
       );
 
   NoteState copyWith({

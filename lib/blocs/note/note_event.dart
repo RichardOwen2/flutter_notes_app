@@ -6,7 +6,11 @@ class GetNotes extends NoteEvent {
   GetNotes({this.force = false});
 }
 
-class GetArchivedNotes extends NoteEvent {}
+class GetArchivedNotes extends NoteEvent {
+  final bool force;
+
+  GetArchivedNotes({this.force = false});
+}
 
 class CreateNote extends NoteEvent {
   final String title;
@@ -17,8 +21,9 @@ class CreateNote extends NoteEvent {
 
 class GetNoteById extends NoteEvent {
   final String noteId;
+  final bool force;
 
-  GetNoteById(this.noteId);
+  GetNoteById(this.noteId, {this.force = false});
 }
 
 class ArchiveNote extends NoteEvent {
