@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:notes_app_2/theme/app_theme.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
 import '../blocs/auth/auth_state.dart';
@@ -20,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void _submit() {
     context.read<AuthBloc>().add(
-      LoginRequested(
+      Login(
         email: emailController.text.trim(),
         password: passwordController.text,
       ),
@@ -90,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                     'Register here',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
-                      color: AppTheme.primaryColor,
+                      // color: AppTheme.primaryColor,
                     )
                   ),
                 ),

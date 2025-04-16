@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notes_app_2/blocs/auth/auth_bloc.dart';
 import 'package:notes_app_2/blocs/auth/auth_event.dart';
 import 'package:notes_app_2/blocs/auth/auth_state.dart';
+import 'package:notes_app_2/blocs/bloc_observer.dart';
 import 'package:notes_app_2/blocs/common/ui_state.dart';
 import 'package:notes_app_2/blocs/note/note_bloc.dart';
 import 'package:notes_app_2/repositories/auth_repository.dart';
@@ -15,11 +17,9 @@ import 'routes/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await init(); // DI init
+  await init();
 
-  // final storage = sl<FlutterSecureStorage>();
-  // final token = await storage.read(key: 'accessToken');
-  // final bool isLoggedIn = token != null;
+  Bloc.observer = AppBlocObserver();
 
   runApp(MyApp());
 }
@@ -46,24 +46,32 @@ class MyApp extends StatelessWidget {
           create: (_) => NoteBloc(noteRepository: sl(), queryClient: sl()),
         ),
       ],
-      child: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          if (state.userState is Loading) {
-            return const MaterialApp(
-              home: Scaffold(body: Center(child: CircularProgressIndicator())),
-            );
-          }
-
-          final isLoggedIn = state.userState is Success;
-          final router = AppRouter.generate(isLoggedIn);
-
-          return MaterialApp.router(
-            routerDelegate: router.routerDelegate,
-            routeInformationParser: router.routeInformationParser,
-            routeInformationProvider: router.routeInformationProvider,
-            theme: theme.light(),
-          );
+      child: BlocListener<AuthBloc, AuthState>(
+        listenWhen: (previous, current) => current.userState is Unauthenticate,
+        listener: (context, state) {
+          context.go('/login');
         },
+        child: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state.userState is Loading) {
+              return const MaterialApp(
+                home: Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                ),
+              );
+            }
+
+            final isLoggedIn = state.userState is Success;
+            final router = AppRouter.generate(isLoggedIn);
+
+            return MaterialApp.router(
+              routerDelegate: router.routerDelegate,
+              routeInformationParser: router.routeInformationParser,
+              routeInformationProvider: router.routeInformationProvider,
+              theme: theme.light(),
+            );
+          },
+        ),
       ),
     );
   }

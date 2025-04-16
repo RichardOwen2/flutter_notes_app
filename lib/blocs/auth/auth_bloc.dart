@@ -60,6 +60,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _onLogout(Logout event, Emitter<AuthState> emit) {
-    emit(AuthState.initial());
+    emit(state.copyWith(
+      userState: const Unauthenticate(),
+      loginState: const Unauthenticate(),
+      registerState: const Unauthenticate(),
+    ));
   }
 }

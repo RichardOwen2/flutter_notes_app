@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _submit() {
     context.read<AuthBloc>().add(
-      RegisterRequested(
+      Register(
         name: nameController.text.trim(),
         email: emailController.text.trim(),
         password: passwordController.text,
